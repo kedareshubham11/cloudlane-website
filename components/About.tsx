@@ -171,7 +171,7 @@ export default function About() {
               </motion.div>
 
               <h4 className="text-2xl md:text-3xl font-bold text-gradient mb-6">
-                Why Choose SarasLabs?
+                Why Choose CloudLane?
               </h4>
 
               <div className="space-y-4">

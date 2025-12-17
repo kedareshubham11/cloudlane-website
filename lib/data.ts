@@ -32,15 +32,15 @@ export const services = [
 ];
 
 export const companyInfo = {
-  name: "SarasLabs",
+  name: "CloudLane",
   tagline: "We Craft Digital Solutions with Passion 💙",
   description:
-    "At SarasLabs, we transform ideas into powerful digital experiences. Our team of expert developers and consultants specializes in creating innovative solutions that drive business growth.",
-  email: "hello@saraslabs.com",
+    "At CloudLane, we transform ideas into powerful digital experiences. Our team of expert developers and consultants specializes in creating innovative solutions that drive business growth.",
+  email: "hello@cloudlane.in",
   address: "123 Innovation Street, Tech City, TC 12345",
   social: {
-    linkedin: "https://linkedin.com/company/saraslabs",
-    github: "https://github.com/saraslabs",
+    linkedin: "https://linkedin.com/company/cloudlane",
+    github: "https://github.com/cloudlane",
   },
 };
 

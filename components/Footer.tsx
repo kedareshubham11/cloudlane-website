@@ -191,7 +191,7 @@ export default function Footer() {
             >
               <Heart className="w-5 h-5 text-pink-400" />
             </motion.div>
-            <span>by SarasLabs</span>
+            <span>by CloudLane</span>
           </motion.div>
         </motion.div>
       </div>
