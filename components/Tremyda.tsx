@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Sparkles, Zap, Code, Database } from "lucide-react";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
 import SectionWrapper from "./SectionWrapper";
 import { tremydaInfo } from "@/lib/data";
+import Image from "next/image";
 
 export default function Tremyda() {
   return (
@@ -31,7 +32,7 @@ export default function Tremyda() {
             </motion.div>
 
             <motion.h2
-              className="text-3xl md:text-5xl lg:text-6xl font-black text-gradient-secondary mb-8 leading-tight"
+              className="text-3xl md:text-5xl lg:text-6xl font-black text-gradient-secondary mb-4 leading-tight"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -40,11 +41,21 @@ export default function Tremyda() {
               {tremydaInfo.title}
             </motion.h2>
 
+            <motion.h3
+              className="text-2xl md:text-3xl font-bold text-foreground/80 mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              {tremydaInfo.subtitle}
+            </motion.h3>
+
             <motion.p
               className="text-lg md:text-xl text-foreground/70 mb-12 leading-relaxed font-light"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
               viewport={{ once: true }}
             >
               {tremydaInfo.description}
@@ -58,7 +69,7 @@ export default function Tremyda() {
                   className="flex items-center gap-4 group"
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                  transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
                   viewport={{ once: true }}
                   whileHover={{ x: 10 }}
                 >
@@ -75,11 +86,14 @@ export default function Tremyda() {
               ))}
             </div>
 
-            <motion.button
-              className="group relative px-10 py-5 gradient-secondary rounded-2xl font-bold text-lg text-foreground shadow-glow overflow-hidden"
+            <motion.a
+              href={tremydaInfo.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-block px-10 py-5 gradient-secondary rounded-2xl font-bold text-lg text-foreground shadow-glow overflow-hidden"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              transition={{ duration: 0.8, delay: 1.0 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
@@ -94,7 +108,7 @@ export default function Tremyda() {
                 Explore Tremyda
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
               </span>
-            </motion.button>
+            </motion.a>
           </motion.div>
 
           {/* Product Showcase */}
@@ -133,80 +147,27 @@ export default function Tremyda() {
                 }}
               />
 
-              {/* Main content */}
-              <div className="glass rounded-2xl p-8 h-96 flex flex-col items-center justify-center relative overflow-hidden">
-                {/* Background pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute top-4 left-4">
-                    <Code className="w-8 h-8 text-cyan-400" />
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <Database className="w-8 h-8 text-pink-400" />
-                  </div>
-                  <div className="absolute bottom-4 left-4">
-                    <Zap className="w-8 h-8 text-purple-400" />
-                  </div>
-                  <div className="absolute bottom-4 right-4">
-                    <Sparkles className="w-8 h-8 text-cyan-400" />
-                  </div>
-                </div>
-
-                {/* Logo */}
-                <motion.div
-                  className="w-32 h-32 gradient-primary rounded-3xl mb-8 flex items-center justify-center shadow-glow relative"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  animate={{
-                    boxShadow: [
-                      "0 0 50px rgba(0, 212, 255, 0.3)",
-                      "0 0 80px rgba(255, 0, 110, 0.4)",
-                      "0 0 50px rgba(0, 212, 255, 0.3)",
-                    ],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Number.POSITIVE_INFINITY,
-                    repeatType: "reverse",
-                  }}
+              {/* Main content - Tremyda Flow Image */}
+              <motion.div
+                className="glass rounded-2xl p-4 overflow-hidden relative"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <a
+                  href={tremydaInfo.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block relative aspect-video w-full"
                 >
-                  <span className="text-foreground text-4xl font-black">T</span>
-
-                  {/* Orbiting elements */}
-                  <motion.div
-                    className="absolute w-4 h-4 bg-cyan-400 rounded-full"
-                    animate={{
-                      rotate: 360,
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Number.POSITIVE_INFINITY,
-                      ease: "linear",
-                    }}
-                    style={{
-                      transformOrigin: "80px 0px",
-                    }}
+                  <Image
+                    src={tremydaInfo.image}
+                    alt="Tremyda Health Data Platform Flow"
+                    fill
+                    className="object-contain rounded-xl"
+                    priority
                   />
-                </motion.div>
-
-                <motion.h3
-                  className="text-3xl font-bold text-gradient mb-4"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
-                  viewport={{ once: true }}
-                >
-                  Tremyda Dashboard
-                </motion.h3>
-
-                <motion.p
-                  className="text-foreground/70 text-center text-lg"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
-                  viewport={{ once: true }}
-                >
-                  Interactive product preview coming soon
-                </motion.p>
-              </div>
+                </a>
+              </motion.div>
             </div>
           </motion.div>
         </div>

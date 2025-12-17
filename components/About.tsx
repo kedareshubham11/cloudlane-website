@@ -5,17 +5,17 @@ import { Users, Target, Award, Heart, Zap } from "lucide-react";
 import SectionWrapper from "@/components/SectionWrapper";
 
 const stats = [
-  { icon: Users, label: "Team Members", value: "15+", color: "text-cyan-400" },
+  { icon: Users, label: "Team Members", value: "10+", color: "text-cyan-400" },
   {
     icon: Target,
     label: "Projects Completed",
-    value: "100+",
+    value: "20+",
     color: "text-pink-400",
   },
   {
     icon: Award,
     label: "Years Experience",
-    value: "8+",
+    value: "6+",
     color: "text-purple-400",
   },
 ];

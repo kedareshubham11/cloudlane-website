@@ -36,8 +36,8 @@ export const companyInfo = {
   tagline: "We Craft Digital Solutions with Passion 💙",
   description:
     "At CloudLane, we transform ideas into powerful digital experiences. Our team of expert developers and consultants specializes in creating innovative solutions that drive business growth.",
-  email: "hello@cloudlane.in",
-  address: "123 Innovation Street, Tech City, TC 12345",
+  email: "shubham@cloudlane.in",
+  address: "Casa Poli, Wakad, Pune, Maharashtra, India",
   social: {
     linkedin: "https://linkedin.com/company/cloudlane",
     github: "https://github.com/cloudlane",
@@ -45,13 +45,16 @@ export const companyInfo = {
 };
 
 export const tremydaInfo = {
-  title: "Tremyda",
+  title: "Next-Generation Health Data Platform",
+  subtitle: "Transforming Healthcare Data Management",
   description:
-    "Our flagship product that revolutionizes how businesses manage their digital workflows. Tremyda combines powerful automation with intuitive design to streamline your operations.",
+    "Tremyda is the comprehensive health data platform that helps healthcare organizations collect, manage, and share data effectively. Our platform supports clinical studies, medical research, remote patient monitoring, and more.",
   features: [
-    "Advanced Workflow Automation",
-    "Real-time Analytics Dashboard",
-    "Seamless Third-party Integrations",
-    "Enterprise-grade Security",
+    "Clinical Study Data Collection",
+    "Medical Research Data Management",
+    "Remote Patient Monitoring",
+    "Secure Health Data Sharing",
   ],
+  link: "https://tremyda.com",
+  image: "https://tremyda.com/_next/image?url=%2Fimages%2Ftremyda-flow.png&w=1080&q=75",
 };

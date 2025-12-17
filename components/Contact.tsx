@@ -81,7 +81,7 @@ export default function Contact() {
                 {
                   icon: Phone,
                   title: "Call Us",
-                  info: "+1 (555) 123-4567",
+                  info: "+917775954978",
                   color: "text-purple-400",
                 },
               ].map((contact, index) => (
