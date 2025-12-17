@@ -7,7 +7,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SarasLabs - Digital Solutions with Passion",
+  title: "CloudLane - Digital Solutions with Passion",
   description:
     "We craft innovative web applications, mobile apps, cloud solutions, and AWS consulting services. Discover our flagship product Tremyda.",
   keywords:
