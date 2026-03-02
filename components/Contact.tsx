@@ -1,16 +1,53 @@
 "use client";
 
 import type React from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Send, MessageCircle, Phone } from "lucide-react";
+import { Mail, MapPin, Send, MessageCircle, Phone, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import SectionWrapper from "@/components/SectionWrapper";
 import { companyInfo } from "@/lib/data";
 
+type FormStatus = "idle" | "loading" | "success" | "error";
+
 export default function Contact() {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted");
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+
+      // Reset to idle after 5 seconds
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : "Something went wrong");
+    }
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const isDisabled = status === "loading" || status === "success";
 
   return (
     <SectionWrapper id="contact" className="py-32">
@@ -158,7 +195,10 @@ export default function Contact() {
                     id="name"
                     name="name"
                     required
-                    className="w-full px-6 py-4 glass rounded-2xl border border-white/20 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-foreground placeholder-foreground/50 bg-transparent"
+                    value={formData.name}
+                    onChange={handleChange}
+                    disabled={isDisabled}
+                    className="w-full px-6 py-4 glass rounded-2xl border border-white/20 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-foreground placeholder-foreground/50 bg-transparent disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Your name"
                   />
                 </motion.div>
@@ -180,7 +220,10 @@ export default function Contact() {
                     id="email"
                     name="email"
                     required
-                    className="w-full px-6 py-4 glass rounded-2xl border border-white/20 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-foreground placeholder-foreground/50 bg-transparent"
+                    value={formData.email}
+                    onChange={handleChange}
+                    disabled={isDisabled}
+                    className="w-full px-6 py-4 glass rounded-2xl border border-white/20 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-foreground placeholder-foreground/50 bg-transparent disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="your@email.com"
                   />
                 </motion.div>
@@ -204,20 +247,47 @@ export default function Contact() {
                   name="message"
                   rows={6}
                   required
-                  className="w-full px-6 py-4 glass rounded-2xl border border-white/20 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-foreground placeholder-foreground/50 bg-transparent resize-none"
+                  value={formData.message}
+                  onChange={handleChange}
+                  disabled={isDisabled}
+                  className="w-full px-6 py-4 glass rounded-2xl border border-white/20 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-foreground placeholder-foreground/50 bg-transparent resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="Tell us about your project..."
                 />
               </motion.div>
 
+              {/* Status Messages */}
+              {status === "success" && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 text-green-400 bg-green-400/10 px-4 py-3 rounded-xl"
+                >
+                  <CheckCircle className="w-5 h-5" />
+                  <span>Message sent successfully! We'll get back to you soon.</span>
+                </motion.div>
+              )}
+
+              {status === "error" && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 text-red-400 bg-red-400/10 px-4 py-3 rounded-xl"
+                >
+                  <AlertCircle className="w-5 h-5" />
+                  <span>{errorMessage}</span>
+                </motion.div>
+              )}
+
               <motion.button
                 type="submit"
-                className="group relative w-full gradient-primary px-8 py-5 rounded-2xl font-bold text-lg text-white shadow-glow overflow-hidden"
+                disabled={isDisabled}
+                className="group relative w-full gradient-primary px-8 py-5 rounded-2xl font-bold text-lg text-white shadow-glow overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 viewport={{ once: true }}
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={!isDisabled ? { scale: 1.02, y: -2 } : {}}
+                whileTap={!isDisabled ? { scale: 0.98 } : {}}
               >
                 <motion.div
                   className="absolute inset-0 bg-white/20"
@@ -226,8 +296,22 @@ export default function Contact() {
                   transition={{ duration: 0.5 }}
                 />
                 <span className="relative flex items-center justify-center gap-3">
-                  Send Message
-                  <Send className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
+                  {status === "loading" ? (
+                    <>
+                      Sending...
+                      <Loader2 className="w-6 h-6 animate-spin" />
+                    </>
+                  ) : status === "success" ? (
+                    <>
+                      Sent!
+                      <CheckCircle className="w-6 h-6" />
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
+                    </>
+                  )}
                 </span>
               </motion.button>
             </motion.form>
